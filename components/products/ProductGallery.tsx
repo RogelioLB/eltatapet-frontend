@@ -34,7 +34,6 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
           alt={images[selected].alt || productName}
           fill
           className="object-cover transition-transform duration-500 group-hover:scale-105"
-          sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
         <div className="absolute top-4 right-4 bg-white/80 backdrop-blur-sm rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -60,7 +59,6 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
                 alt={img.alt || `${productName} ${i + 1}`}
                 fill
                 className="object-cover"
-                sizes="64px"
               />
             </button>
           ))}
@@ -79,7 +77,6 @@ export default function ProductGallery({ images, productName }: ProductGalleryPr
               alt={images[selected].alt || productName}
               fill
               className="object-contain"
-              sizes="100vw"
             />
           </div>
         </div>

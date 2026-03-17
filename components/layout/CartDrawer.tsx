@@ -92,7 +92,6 @@ export default function CartDrawer() {
                         alt={img.alt || item.product.name}
                         fill
                         className="object-cover"
-                        sizes="80px"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-orange-200">

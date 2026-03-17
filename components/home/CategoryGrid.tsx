@@ -54,7 +54,6 @@ export default function CategoryGrid({ categories }: CategoryGridProps) {
                     alt={cat.image.alt || cat.name}
                     fill
                     className="object-cover opacity-80 group-hover:scale-110 transition-transform duration-500"
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw"
                   />
                 ) : (
                   <span className="text-5xl">{emoji}</span>

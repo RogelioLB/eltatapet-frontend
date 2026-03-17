@@ -86,7 +86,6 @@ export default function CartPageContent() {
                         alt={img.alt || item.product.name}
                         fill
                         className="object-cover"
-                        sizes="96px"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-4xl">

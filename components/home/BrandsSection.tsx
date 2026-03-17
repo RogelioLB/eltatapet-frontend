@@ -1,3 +1,4 @@
+
 import Image from 'next/image';
 
 const BRANDS = [
@@ -17,17 +18,8 @@ export default function BrandsSection() {
         </p>
         <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14">
           {BRANDS.map((brand) => (
-            <div
-              key={brand.name}
-              className="relative h-12 w-28 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300"
-            >
-              <Image
-                src={brand.image}
-                alt={brand.name}
-                fill
-                className="object-contain"
-                sizes="112px"
-              />
+            <div key={brand.name} className="relative h-12 w-28 grayscale hover:grayscale-0 opacity-70 hover:opacity-100 transition-all duration-300">
+              <Image src={brand.image} alt={brand.name} fill className="object-contain" />
             </div>
           ))}
         </div>
