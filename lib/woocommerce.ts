@@ -10,14 +10,13 @@ const WC_URL = process.env.NEXT_PUBLIC_WC_URL || 'https://eltatapet.cl';
 const WC_KEY = process.env.WC_CONSUMER_KEY || '';
 const WC_SECRET = process.env.WC_CONSUMER_SECRET || '';
 
+const AUTH_HEADER = `Basic ${Buffer.from(`${WC_KEY}:${WC_SECRET}`).toString('base64')}`;
+
 async function wooFetch<T>(
   endpoint: string,
   params?: Record<string, string | number | boolean>
 ): Promise<T> {
   const url = new URL(`${WC_URL}/wp-json/wc/v3/${endpoint}`);
-
-  url.searchParams.set('consumer_key', WC_KEY);
-  url.searchParams.set('consumer_secret', WC_SECRET);
 
   if (params) {
     Object.entries(params).forEach(([key, value]) => {
@@ -28,6 +27,7 @@ async function wooFetch<T>(
   }
 
   const res = await fetch(url.toString(), {
+    headers: { Authorization: AUTH_HEADER },
     next: { revalidate: 60 },
   });
 
@@ -40,12 +40,13 @@ async function wooFetch<T>(
 
 async function wooPost<T>(endpoint: string, body: unknown): Promise<T> {
   const url = new URL(`${WC_URL}/wp-json/wc/v3/${endpoint}`);
-  url.searchParams.set('consumer_key', WC_KEY);
-  url.searchParams.set('consumer_secret', WC_SECRET);
 
   const res = await fetch(url.toString(), {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: AUTH_HEADER,
+    },
     body: JSON.stringify(body),
   });
 

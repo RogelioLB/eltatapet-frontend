@@ -24,23 +24,31 @@ interface TiendaProps {
 async function ProductsContent({ searchParams }: { searchParams: Awaited<TiendaProps['searchParams']> }) {
   const page = Number(searchParams.page ?? 1);
 
-  const products = await getProducts({
-    page,
-    per_page: 24,
-    search: searchParams.search,
-    category: searchParams.category,
-    orderby: searchParams.orderby as 'date' | 'price' | 'popularity' | 'rating' | undefined,
-    order: searchParams.order as 'asc' | 'desc' | undefined,
-    min_price: searchParams.min_price,
-    max_price: searchParams.max_price,
-  });
-
-  return <ProductGrid products={products} />;
+  try {
+    const products = await getProducts({
+      page,
+      per_page: 24,
+      search: searchParams.search,
+      category: searchParams.category,
+      orderby: searchParams.orderby as 'date' | 'price' | 'popularity' | 'rating' | undefined,
+      order: searchParams.order as 'asc' | 'desc' | undefined,
+      min_price: searchParams.min_price,
+      max_price: searchParams.max_price,
+    });
+    return <ProductGrid products={products} />;
+  } catch {
+    return (
+      <div className="text-center py-20 text-[#3D1F00]/50">
+        <p className="text-lg font-semibold">No se pudieron cargar los productos.</p>
+        <p className="text-sm mt-2">Por favor intenta más tarde.</p>
+      </div>
+    );
+  }
 }
 
 export default async function TiendaPage({ searchParams }: TiendaProps) {
   const params = await searchParams;
-  const categories = await getCategories();
+  const categories = await getCategories().catch(() => []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
